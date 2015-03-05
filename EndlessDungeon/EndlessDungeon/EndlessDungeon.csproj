@@ -41,9 +41,9 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="Battle.cs" />
-    <Compile Include="Buff.cs" />
     <Compile Include="Cast.cs" />
     <Compile Include="AI.cs" />
+    <Compile Include="IBuff.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="ISpellItem.cs" />
     <Compile Include="Item.cs" />

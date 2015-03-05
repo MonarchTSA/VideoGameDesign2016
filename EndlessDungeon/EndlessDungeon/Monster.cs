@@ -14,7 +14,7 @@ namespace EndlessDungeon
         public int CurrentMP { get; set; }
         public int AttackDamage { get; set; }
         public int MagicDamage { get; set; }
-        public int Armor { get; set; }
+        public int Armor { get; set; }  
         public int MagicResist { get; set; }
         public int ArmorPenetration { get; set; }
         public int MagicPenetration { get; set; }

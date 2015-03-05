@@ -11,98 +11,124 @@ namespace EndlessDungeon
         public Mob mob { get; set; }
         public Player player { get; set; }
         public Type Victor { get; set; }
-        public IBuff[] Buffs { get; set; }
+        public Type FastestMonster
+        {
+            get
+            {
+                if (player.NextAction.Priority > mob.NextAction.Priority)
+                {
+                    //Player priority greater
+                    return typeof(Player);
+                }
+                else if (player.NextAction.Priority < mob.NextAction.Priority)
+                {
+                    //Mob priority greater
+                    return typeof(Mob);
+                }
+                else
+                {
+                    //Priority equal
+                    if (player.Speed > mob.Speed)
+                    {
+                        //Player speed greater
+                        return typeof(Player);
+                    }
+                    else if (player.Speed < mob.Speed)
+                    {
+                        //Mob speed greater
+                        return typeof(Mob);
+                    }
+                    else
+                    {
+                        //Speed equal
+                        Random r = new Random();
+                        if (r.Next(0, 2) == 0)
+                        {
+                            return typeof(Player);
+                        }
+                        else
+                        {
+                            return typeof(Mob);
+                        }
+                    }
+                }
+            }
+        }
+        public List<IBuff> Buffs { get; set; }
+
+        public Battle(Player player, Mob mob)
+        {
+            this.player = player;
+            this.mob = mob;
+        }
 
         public void StartBattle()
         {
             while (true)
             {
-                PerformFirstAction();
+                PerformAction(FastestMonster);
+                
+                if (WhoIsAlive()) { break; }
 
-                //if the monster is dead
-                if (player.NextAction.IsPerformed && !mob.IsAlive)
+                //Peform the action of the other monster
+                if (FastestMonster == typeof(Player))
                 {
-                    Victor = typeof(Player);
-                    break;
-                }
-                //if the player is dead
-                else if (mob.NextAction.IsPerformed && !player.IsAlive)
-                {
-                    Victor = typeof(Mob);
-                    break;
-                }
-
-                //Otherwise perform the other action
-                if (player.NextAction.IsPerformed)
-                {
-                    mob.NextAction.Perform();
+                    PerformAction(typeof(Mob));
                 }
                 else
                 {
-                    player.NextAction.Perform();
+                    PerformAction(typeof(Player));
                 }
+                
+                if (WhoIsAlive()) { break; }
 
-                //if the player is dead, end game
-                //if the monster is dead, end battle
-                //Apply status effects
-                //Decrement buffs, remove if no more turns remaing
+                UpdateStatusEffects();
+                UpdateBuffs();
             } 
+
         }
-        private void PerformFirstAction()
+
+        private void PerformAction(Type t)
         {
-            if (player.NextAction.Priority > mob.NextAction.Priority)
+            if (t == typeof(Player))
             {
-                //Player priority greater
                 player.NextAction.Perform();
-            }
-            else if (player.NextAction.Priority < mob.NextAction.Priority)
-            {
-                //Mob priority greater
-                mob.NextAction.Perform();
+                if (player.NextAction is IBuff)
+                {
+                    Buffs.Add((IBuff)player.NextAction);
+                }
             }
             else
             {
-                //Priority equal
-                if (player.Speed > mob.Speed)
+                mob.NextAction.Perform();
+                if (mob.NextAction is IBuff)
                 {
-                    //Player speed greater
-                    player.NextAction.Perform();
-                }
-                else if (player.Speed < mob.Speed)
-                {
-                    //Mob speed greater
-                    mob.NextAction.Perform();
-                }
-                else
-                {
-                    //Speed equal
-                    Random r = new Random();
-                    if (r.Next(0, 2) == 0)
-                    {
-                        player.NextAction.Perform();
-                    }
-                    else
-                    {
-                        mob.NextAction.Perform();
-                    }
+                    Buffs.Add((IBuff)mob.NextAction);
                 }
             }
         }
-        private void PerformPlayerAction()
+
+        //returns true if someone is not alive, false if everyone is alive
+        private bool WhoIsAlive()
         {
-            player.NextAction.Perform();
-            if (player.NextAction is IBuff)
+            if (player.IsAlive && !mob.IsAlive)
             {
-
+                Victor = typeof(Player);
+                return true; 
+            }
+            else if (mob.IsAlive && !player.IsAlive)
+            {
+                Victor = typeof(Mob);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-        private void PeformMobAction()
-        {
 
-        }
-        private void CheckAliveStatus()
-        {
+        private void UpdateStatusEffects() { }
 
-        }
+        private void UpdateBuffs() { }
     }
 }

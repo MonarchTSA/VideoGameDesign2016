@@ -8,7 +8,8 @@ namespace EndlessDungeon
 {
     public interface IBuff
     {
-        public void applyBuff();
-        public void removeBuff();
+        public int Length;
+        public void ApplyBuff();
+        public void RemoveBuff();
     }
 }
