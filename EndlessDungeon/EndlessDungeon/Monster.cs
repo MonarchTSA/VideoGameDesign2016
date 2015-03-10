@@ -34,6 +34,7 @@ namespace EndlessDungeon
                 }
             }
         }
+        public String Name { get; set; }
         public Action NextAction { get; set; }
     }
 }

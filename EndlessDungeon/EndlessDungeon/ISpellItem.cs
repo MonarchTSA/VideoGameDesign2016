@@ -8,6 +8,6 @@ namespace EndlessDungeon
 {
     public interface ISpellItem
     {
-        public Cast Spell { get; set; }
+         Cast Spell { get; set; }
     }
 }

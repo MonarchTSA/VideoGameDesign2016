@@ -9,12 +9,10 @@ namespace EndlessDungeon
     public abstract class Action
     {
         public bool IsBuff { get; set; }
-        public bool IsPerformed { get; set; }
         public int Priority { get; set; }
+        public String Name { get; set; }
+        public String Message { get; set; }
 
-        public abstract void Perform()
-        {
-            IsPerformed = false;
-        }
+        public abstract void Perform();
     }
 }

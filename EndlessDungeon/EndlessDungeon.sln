@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDungeon", "EndlessDungeon\EndlessDungeon.csproj", "{6A22147F-CD67-49EC-8479-7580909E98A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDungoenTester", "EndlessDungoenTester\EndlessDungoenTester.csproj", "{7D2CD759-3F30-4C04-8397-222307BB6965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6A22147F-CD67-49EC-8479-7580909E98A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A22147F-CD67-49EC-8479-7580909E98A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A22147F-CD67-49EC-8479-7580909E98A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2CD759-3F30-4C04-8397-222307BB6965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2CD759-3F30-4C04-8397-222307BB6965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2CD759-3F30-4C04-8397-222307BB6965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2CD759-3F30-4C04-8397-222307BB6965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

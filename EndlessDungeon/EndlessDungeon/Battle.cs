@@ -11,6 +11,7 @@ namespace EndlessDungeon
         public Mob mob { get; set; }
         public Player player { get; set; }
         public Type Victor { get; set; }
+        public bool Finished { get; set; }
         public Type FastestMonster
         {
             get
@@ -60,32 +61,30 @@ namespace EndlessDungeon
         {
             this.player = player;
             this.mob = mob;
+            Finished = false;
+            Buffs = new List<IBuff>();
         }
 
-        public void StartBattle()
+        public void NextTurn()
         {
-            while (true)
+            PerformAction(FastestMonster);
+                
+            if (WhoIsAlive()) { return; }
+
+            //Peform the action of the other monster
+            if (FastestMonster == typeof(Player))
             {
-                PerformAction(FastestMonster);
+                PerformAction(typeof(Mob));
+            }
+            else
+            {
+                PerformAction(typeof(Player));
+            }
                 
-                if (WhoIsAlive()) { break; }
+            if (WhoIsAlive()) { return; }
 
-                //Peform the action of the other monster
-                if (FastestMonster == typeof(Player))
-                {
-                    PerformAction(typeof(Mob));
-                }
-                else
-                {
-                    PerformAction(typeof(Player));
-                }
-                
-                if (WhoIsAlive()) { break; }
-
-                UpdateStatusEffects();
-                UpdateBuffs();
-            } 
-
+            UpdateStatusEffects();
+            UpdateBuffs();
         }
 
         private void PerformAction(Type t)
@@ -114,11 +113,13 @@ namespace EndlessDungeon
             if (player.IsAlive && !mob.IsAlive)
             {
                 Victor = typeof(Player);
+                Finished = true;
                 return true; 
             }
             else if (mob.IsAlive && !player.IsAlive)
             {
                 Victor = typeof(Mob);
+                Finished = true;
                 return true;
             }
             else
@@ -129,6 +130,17 @@ namespace EndlessDungeon
 
         private void UpdateStatusEffects() { }
 
-        private void UpdateBuffs() { }
+        private void UpdateBuffs()
+        {
+            foreach (IBuff buff in Buffs)
+            {
+                buff.Length--;
+                if (buff.Length == 0)
+                {
+                    buff.RemoveBuff();
+                    Buffs.Remove(buff);
+                }
+            }
+        }
     }
 }
