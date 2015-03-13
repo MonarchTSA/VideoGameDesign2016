@@ -9,7 +9,6 @@ namespace EndlessDungeon
     public class Attack : Action
     {
 
-        public Monster Sender { get; set; }
         public Monster Reciever { get; set; }
         public int Damage { get; set; }
         public bool CriticalStrike

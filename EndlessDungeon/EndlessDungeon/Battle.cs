@@ -132,7 +132,7 @@ namespace EndlessDungeon
 
         private void UpdateBuffs()
         {
-            foreach (IBuff buff in Buffs)
+            foreach (IBuff buff in Buffs.ToList())
             {
                 buff.Length--;
                 if (buff.Length == 0)

@@ -11,7 +11,6 @@ namespace EndlessDungeon
 
         public Monster Sender { get; set; }
         public int Length { get; set; }
-        public int Priority { get; set; }
 
         public Defend(Monster sender)
         {
