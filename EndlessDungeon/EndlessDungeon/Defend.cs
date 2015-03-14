@@ -11,6 +11,13 @@ namespace EndlessDungeon
 
         public Monster Sender { get; set; }
         public int Length { get; set; }
+        public override string Message
+        {
+            get
+            {
+                return Sender.Name + " defended!";
+            }
+        }
 
         public Defend(Monster sender)
         {
@@ -26,12 +33,12 @@ namespace EndlessDungeon
 
         public void ApplyBuff()
         {
-            Sender.Armor += 10;
+            Sender.Armor += 100;
         }
 
         public void RemoveBuff()
         {
-            Sender.Armor -= 10;
+            Sender.Armor -= 100;
         }
     }
 }

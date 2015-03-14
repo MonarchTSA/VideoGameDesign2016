@@ -56,6 +56,7 @@ namespace EndlessDungeon
             }
         }
         public List<IBuff> Buffs { get; set; }
+        public List<String> TurnLog { get; set; }
 
         public Battle(Player player, Mob mob)
         {
@@ -63,10 +64,12 @@ namespace EndlessDungeon
             this.mob = mob;
             Finished = false;
             Buffs = new List<IBuff>();
+            TurnLog = new List<string>();
         }
 
         public void NextTurn()
         {
+            TurnLog.Clear();
             PerformAction(FastestMonster);
                 
             if (WhoIsAlive()) { return; }
@@ -92,6 +95,7 @@ namespace EndlessDungeon
             if (t == typeof(Player))
             {
                 player.NextAction.Perform();
+                TurnLog.Add(player.NextAction.Message);
                 if (player.NextAction is IBuff)
                 {
                     Buffs.Add((IBuff)player.NextAction);
@@ -100,6 +104,7 @@ namespace EndlessDungeon
             else
             {
                 mob.NextAction.Perform();
+                TurnLog.Add(mob.NextAction.Message);
                 if (mob.NextAction is IBuff)
                 {
                     Buffs.Add((IBuff)mob.NextAction);

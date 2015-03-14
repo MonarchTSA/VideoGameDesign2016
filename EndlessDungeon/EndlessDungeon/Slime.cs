@@ -22,6 +22,7 @@ namespace EndlessDungeon
             MagicPenetration = 0;
             Speed = 5;
             Level = 1;
+            Name = "Slime";
         }
     }
 }

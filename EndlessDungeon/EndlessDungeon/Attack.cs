@@ -11,28 +11,22 @@ namespace EndlessDungeon
 
         public Monster Reciever { get; set; }
         public int Damage { get; set; }
-        public bool CriticalStrike
+        public bool CriticalStrike { get; set; }
+        public override String Message
         {
             get
             {
-                Random r = new Random();
-                if (r.Next(0, 101) <= 10)
+                if (CriticalStrike)
                 {
-                    return true;
+                    return "A critical hit! " + Sender.Name + " attacked " + Reciever.Name + " for " + Damage + " damage!";
                 }
                 else
                 {
-                    return false;
+                    return Sender.Name + " attacked " + Reciever.Name + " for " + Damage + " damage!";
                 }
             }
         }
-        public String Message
-        {
-            get
-            {
-                return Sender.Name + " attacked " + Reciever.Name + " for " + Damage + " damage!";
-            }
-        }
+        private static Random r = new Random();
 
         public Attack(Monster sender, Monster reciever) 
         {
@@ -44,9 +38,10 @@ namespace EndlessDungeon
         {
             double DamageMultiplier = 100d / (100 + (Reciever.Armor - Sender.ArmorPenetration));
             Damage = (int)((double)(Sender.AttackDamage) * DamageMultiplier);
-            if (CriticalStrike)
+            if (r.Next(0, 101) <= 10)
             {
                 Damage *= 2;
+                CriticalStrike = true;
             }
             Reciever.CurrentHP -= Damage;
         }

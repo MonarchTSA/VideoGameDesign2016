@@ -17,6 +17,10 @@ namespace EndlessDungoenTester
             Battle battle = new Battle(player, slime);
             while (!battle.Finished)
             {
+                foreach (String s in battle.TurnLog)
+                {
+                    Console.WriteLine(s);
+                }
                 Console.WriteLine("Player HP: " + player.CurrentHP + "/" + player.MaxHP);
                 Console.WriteLine("Slime HP: " + slime.CurrentHP + "/" + slime.MaxHP);
                 Console.WriteLine("What do you want to do?");
@@ -31,7 +35,7 @@ namespace EndlessDungoenTester
                         case ConsoleKey.D1:
                             player.NextAction = new Attack(player, slime);
                             inputChosen = true;
-                            break;
+                             break;
                         case ConsoleKey.D2:
                             inputChosen = true;
                             player.NextAction = new Defend(player);

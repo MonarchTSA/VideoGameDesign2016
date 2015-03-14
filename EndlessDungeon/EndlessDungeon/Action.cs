@@ -11,7 +11,7 @@ namespace EndlessDungeon
         public bool IsBuff { get; set; }
         public int Priority { get; set; }
         public String Name { get; set; }
-        public String Message { get; set; }
+        public virtual String Message { get; set; }
         public Monster Sender { get; set; }
 
         public abstract void Perform();
